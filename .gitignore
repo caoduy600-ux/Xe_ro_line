@@ -1,0 +1,12 @@
+# STM32CubeIDE build files
+Debug/
+Release/
+
+# IDE workspace metadata
+.metadata/
+
+# Generated firmware and map files
+*.elf
+*.hex
+*.bin
+*.map
