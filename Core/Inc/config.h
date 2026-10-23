@@ -52,7 +52,7 @@
 #define MOTOR_STBY_PIN  GPIO_PIN_9
 
 /* Dao chieu quay neu can */
-#define MOTOR_L_INVERT 0
+#define MOTOR_L_INVERT 1
 #define MOTOR_R_INVERT 0
 
 /* Bu toc do dong co */

@@ -20,6 +20,7 @@
 #include "main.h"
 #include "tim.h"
 #include "gpio.h"
+#include "motor.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -44,9 +45,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-/* Live Expressions: 0=cho, 1=nhom trai, 2=nhom phai,
-   3=ca 4 banh, 4=ket thuc */
-volatile uint8_t motor_test_step = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -92,79 +91,33 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  /* TEST 2 DRIVER TB6612FNG - 4 MOTOR
-     Driver truoc: kenh A = truoc trai, B = truoc phai.
-     Driver sau:   kenh A = sau trai,  B = sau phai.
-     PA0/PB0/PB1 dieu khien kenh A ca hai driver.
-     PA1/PB5/PB8 dieu khien kenh B ca hai driver.
-     PB9 = STBY chung. */
+  /* USER CODE BEGIN 2 */
 
-  /* 1) Driver standby; PWM = 0 truoc khi start timer */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_1 |
-                          GPIO_PIN_5 | GPIO_PIN_8, GPIO_PIN_RESET);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
+  Motor_Init();
 
-  /* 2) Bat TIM2 PWM CH1 (PA0), CH2 (PA1) */
-  if (HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1) != HAL_OK)
-  {
-      Error_Handler();
-  }
-  if (HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2) != HAL_OK)
-  {
-      Error_Handler();
-  }
-
-  /* 3) Chieu quay cua hai kenh: 1-0.
-        Neu banh tao chuyen dong lui, kiem tra/dao cuc tung motor. */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);   /* AIN1 */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET); /* AIN2 */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);   /* BIN1 */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET); /* BIN2 */
-
-  /* ARR = 3599 -> CCR = 1260 la 35% duty, theo tim.c ban gui */
-  const uint32_t test_pwm = 1260U;
-
-  /* 4) Cho 3 giay, sau do cho phep driver chay */
   HAL_Delay(3000);
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_SET);
 
-  /* TEST 1: 2 BANH TRAI (truoc trai + sau trai) */
-  motor_test_step = 1;
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, test_pwm);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
+  /* Test 1: Hai banh trai tien */
+  Motor_Set(300, 0);
+  HAL_Delay(2000);
+
+  Motor_Stop();
   HAL_Delay(1000);
 
-  /* Dung 1 giay */
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
+  /* Test 2: Hai banh phai tien */
+  Motor_Set(0, 300);
+  HAL_Delay(2000);
+
+  Motor_Stop();
   HAL_Delay(1000);
 
-  /* TEST 2: 2 BANH PHAI (truoc phai + sau phai) */
-  motor_test_step = 2;
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, test_pwm);
-  HAL_Delay(1000);
+  /* Test 3: Ca 4 banh tien ve phia dau do line */
+  Motor_Set(300, 300);
+  HAL_Delay(2000);
 
-  /* Dung 1 giay */
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
-  HAL_Delay(1000);
+  Motor_Stop();
 
-  /* TEST 3: CA 4 BANH */
-  motor_test_step = 3;
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, test_pwm);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, test_pwm);
-  HAL_Delay(1000);
-
-  /* 5) Dung het, dua driver ve Standby */
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_1 |
-                          GPIO_PIN_5 | GPIO_PIN_8, GPIO_PIN_RESET);
-  motor_test_step = 4;
+  /* USER CODE END 2 */
   /* USER CODE END 2 */
 
   /* Infinite loop */
