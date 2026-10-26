@@ -16,7 +16,7 @@ uint8_t Sensor_ReadMask(void)
 
 uint8_t Sensor_GetError(float *err)
 {
-    static const int w[5] = {-4, -2, 0, 2, 4};
+    static const int w[5] = {4, 2, 0, -2, -4};
     uint8_t m = Sensor_ReadMask();
     int sum = 0, cnt = 0;
 

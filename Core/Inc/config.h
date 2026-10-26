@@ -5,9 +5,9 @@
 #include "main.h"
 
 /* ========== CAM BIEN DO LINE ========== */
-/* S0 ngoai cung trai, S4 ngoai cung phai */
+/* S0 ngoai cung phai, S4 ngoai cungtrai */
 
-#define SENSOR_ACTIVE_LEVEL 1
+#define SENSOR_ACTIVE_LEVEL 0
 
 #define S0_PORT GPIOB
 #define S0_PIN  GPIO_PIN_12
@@ -63,8 +63,8 @@
 
 /* Toc do theo thang PWM 0-1000 */
 #define BASE_SPEED 300
-#define MIN_SPEED  120
-#define SLOW_GAIN  25.0f
+#define MIN_SPEED  150
+#define SLOW_GAIN  20.0f
 
 /* Thong so PID */
 #define PID_KP 50.0f
