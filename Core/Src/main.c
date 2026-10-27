@@ -1,4 +1,3 @@
-
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -25,7 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "control.h"
+#include "motor.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,13 +88,8 @@ int main(void)
   MX_TIM2_Init();
 
   /* USER CODE BEGIN 2 */
-  Control_Init();
-
-  /* Cho 3 giay dat xe vao vach */
-  HAL_Delay(3000);
-
-  /* Bat dau do line */
-  Control_Start();
+  Motor_Init();
+  Motor_Set(-1000,1000);
   /* USER CODE END 2 */
 
   /* Infinite loop */

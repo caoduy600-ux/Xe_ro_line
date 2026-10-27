@@ -1,5 +1,8 @@
 #include "pid.h"
 
+/* 0..1, smaller = smoother but slower D response */
+#define D_FILTER_ALPHA 0.3f
+
 void PID_Init(PID_t *pid, float kp, float ki, float kd,
               float out_min, float out_max)
 {
@@ -40,6 +43,10 @@ float PID_Compute(PID_t *pid, float error, float dt)
         derivative = (error - pid->prev_error) / dt;
     }
 
+    /* Low-pass filter: sensor error moves in steps, raw D would spike. */
+    pid->d_filt += D_FILTER_ALPHA * (derivative - pid->d_filt);
+    derivative = pid->d_filt;
+
     pid->prev_error = error;
     pid->has_prev = 1U;
 
@@ -63,5 +70,6 @@ void PID_Reset(PID_t *pid)
 {
     pid->integral = 0.0f;
     pid->prev_error = 0.0f;
+    pid->d_filt = 0.0f;
     pid->has_prev = 0U;
 }

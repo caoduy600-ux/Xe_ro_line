@@ -11,6 +11,7 @@ typedef struct
 
     float integral;
     float prev_error;
+    float d_filt;
 
     float out_min;
     float out_max;

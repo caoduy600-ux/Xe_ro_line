@@ -1,4 +1,3 @@
-
 #include "motor.h"
 #include "config.h"
 #include "tim.h"
@@ -68,12 +67,7 @@ void Motor_Set(int16_t left, int16_t right)
         return;
     }
 
-    /* 5. Tam tat driver trong luc cap nhat */
-    HAL_GPIO_WritePin(MOTOR_STBY_PORT, MOTOR_STBY_PIN,
-                      GPIO_PIN_RESET);
-
-    __HAL_TIM_SET_COMPARE(&MOTOR_TIM, MOTOR_L_CH, 0);
-    __HAL_TIM_SET_COMPARE(&MOTOR_TIM, MOTOR_R_CH, 0);
+    /* 5. Khong nhap STBY / khong zero PWM de tranh giat moi 5 ms */
 
     /* 6. Chon chieu quay ben trai */
     if (left_speed > 0)

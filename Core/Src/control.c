@@ -84,24 +84,29 @@ static void Control_Tick(void)
         ++lost_ticks;
         dbg_lost_ticks = lost_ticks;
 
-        if (err == 0.0f || lost_ticks >= LOST_TIMEOUT_TICKS)
+        if (lost_ticks >= LOST_TIMEOUT_TICKS)
         {
             Control_Stop();
             return;
         }
-
         /* Short, slow recovery toward last known line position. */
         if (err > 0.0f)
         {
-            Motor_Set((int16_t)MIN_SPEED, 0);
+            /* Line was on the right: spin right. */
+            Motor_Set((int16_t)RECOVER_SPEED, -(int16_t)RECOVER_SPEED);
+        }
+        else if (err < 0.0f)
+        {
+            /* Line was on the left: spin left. */
+            Motor_Set(-(int16_t)RECOVER_SPEED, (int16_t)RECOVER_SPEED);
         }
         else
         {
-            Motor_Set(0, (int16_t)MIN_SPEED);
+            /* Line was last seen in the centre: keep going straight, slowly. */
+            Motor_Set((int16_t)MIN_SPEED, (int16_t)MIN_SPEED);
         }
         return;
     }
-
     lost_ticks = 0U;
     dbg_lost_ticks = 0U;
 
@@ -109,7 +114,7 @@ static void Control_Tick(void)
     float base = BASE_SPEED - SLOW_GAIN * abs_err;
     if (base < MIN_SPEED) base = MIN_SPEED;
 
-    float corr = PID_Compute(&pid_line, err, CTRL_DT);
+    float corr = PID_Compute(&pid_line,err, CTRL_DT);
 
     /* Keep both motor commands non-negative in the initial line-following test. */
     if (corr > base) corr = base;
