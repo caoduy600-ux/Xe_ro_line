@@ -81,16 +81,11 @@ int main(void)
   MX_TIM2_Init();
 
   /* USER CODE BEGIN 2 */
-
-  /* Khoi tao PID, Motor va ngat TIM1 */
   Control_Init();
 
-  /* Cho 3 giay de dat xe vao vach den */
   HAL_Delay(3000);
 
-  /* Bat dau do line */
   Control_Start();
-
   /* USER CODE END 2 */
 
   /* Infinite loop */

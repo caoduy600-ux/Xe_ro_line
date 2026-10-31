@@ -41,7 +41,9 @@ void Motor_Init(void)
     }
 }
 void Motor_Set(int16_t left, int16_t right)
-{
+{  int16_t temp = left;
+left = right;
+right = temp;
     //tu dat gia tri neu 2 banh lech nhau
     int32_t left_speed  = (int32_t)((float)left * TRIM_LEFT);
     int32_t right_speed = (int32_t)((float)right * TRIM_RIGHT);
