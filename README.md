@@ -233,20 +233,5 @@ Các hằng `LOST_ERROR`, `RECOVER_SPEED`, `START_DELAY_MS` cũng có trong `con
 - Kiểm tra chống nhiễu và hiệu chỉnh độ cao của dãy TCRT5000.
 - Tinh chỉnh `Kp`, `Kd`, tốc độ quay từ dữ liệu thử nghiệm thực tế, từng thông số một.
 
-## 11. Cập nhật README lên GitHub
-
-Đặt `README.md` ở **thư mục gốc repository** (cùng cấp `Core/`, `Drivers/`). Đặt thư mục `docs/` cạnh README nếu muốn hiển thị liên kết tới hai sơ đồ PNG.
-
-```bash
-git status
-git add README.md docs/luu_do_tong_quan.png docs/luu_do_dieu_khien.png
-git commit -m "docs: add README and line-following flowcharts"
-git push origin main
-```
-
-Sau khi push, GitHub sẽ hiển thị README và **tự render hai lưu đồ Mermaid** ngay trên trang chủ repository.
-
----
-
 **Tác giả / Author:** [Edric0807 (@caoduy600-ux)](https://github.com/caoduy600-ux)  
 **Dự án:** [Xe_ro_line](https://github.com/caoduy600-ux/Xe_ro_line)
