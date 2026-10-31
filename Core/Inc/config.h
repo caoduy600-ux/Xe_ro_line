@@ -62,19 +62,21 @@
 
 /* Toc do theo thang PWM 0-1000 */
 #define BASE_SPEED 300
-#define MIN_SPEED  150
+#define MIN_SPEED  250
 #define SLOW_GAIN  40.0f
 
 /* Thong so PID */
 #define PID_KP 50.0f
 #define PID_KI 0.0f
-#define PID_KD 0.2f
+#define PID_KD 20.0f
 
 /* Chu ky PID 5ms */
 #define CTRL_DT 0.005f
 
 /* Xu ly khi mat line */
 #define LOST_ERROR 5.0f
+#define LOST_GRACE_TICKS 10U
+#define LOST_CENTER_STOP_TICKS 30U
 #define LOST_TIMEOUT_TICKS 100
 
 /* Toc do quay tai cho khi mat line (banh trong dao chieu) */

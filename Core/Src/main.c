@@ -1,3 +1,4 @@
+
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -24,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "motor.h"
+#include "control.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -33,10 +34,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
-#define TEST_START_DELAY_MS 3000U
-#define TEST_RUN_TIME_MS    2000U
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -45,9 +42,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
-volatile uint8_t test_running = 0;
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -69,27 +63,34 @@ int main(void)
   /* USER CODE BEGIN 1 */
   /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
-
+  /* Khoi tao HAL */
   HAL_Init();
 
   /* USER CODE BEGIN Init */
   /* USER CODE END Init */
 
-  /* Configure the system clock */
+  /* Cau hinh Clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
   /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
+  /* Khoi tao ngoai vi */
   MX_GPIO_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
 
   /* USER CODE BEGIN 2 */
-  Motor_Init();
-  Motor_Set(-1000,1000);
+
+  /* Khoi tao PID, Motor va ngat TIM1 */
+  Control_Init();
+
+  /* Cho 3 giay de dat xe vao vach den */
+  HAL_Delay(3000);
+
+  /* Bat dau do line */
+  Control_Start();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -150,7 +151,7 @@ void SystemClock_Config(void)
 /* USER CODE END 4 */
 
 /**
-  * @brief This function is executed in case of error.
+  * @brief Error Handler
   * @retval None
   */
 void Error_Handler(void)

@@ -24,7 +24,7 @@ uint8_t Sensor_GetError(float *err)
         if (m & (1 << i)) { sum += w[i]; cnt++; }
     }
 
-    if (cnt == 0) {                      /* mất line: đẩy mạnh về phía lần cuối thấy */
+    if (cnt == 0) {
         if (last_error > 0)      *err =  LOST_ERROR;
         else if (last_error < 0) *err = -LOST_ERROR;
         else                     *err = 0;
