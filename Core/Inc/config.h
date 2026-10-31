@@ -65,8 +65,8 @@
 /* ===== TOC DO DO LINE ===== */
 
 /* PWM: 0 - 1000 */
-#define BASE_SPEED 260
-#define MIN_SPEED  210
+#define BASE_SPEED 250
+#define MIN_SPEED  200
 
 /* Giam toc khi line lech */
 #define SLOW_GAIN 15.0f
@@ -74,7 +74,7 @@
 
 /* ===== THONG SO PID ===== */
 
-#define PID_KP 50.0f
+#define PID_KP 25.0f
 #define PID_KI 0.0f
 #define PID_KD 0.0f
 

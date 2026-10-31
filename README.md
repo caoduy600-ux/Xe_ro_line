@@ -132,7 +132,6 @@ flowchart TD
     STOP --> Z
 ```
 
-**Bản PNG để chèn báo cáo:** [Xem lưu đồ tổng thể](docs/luu_do_tong_quan.png) · [Xem lưu đồ điều khiển](docs/luu_do_dieu_khien.png).
 
 ## 6. Cách tính sai số và PID
 
