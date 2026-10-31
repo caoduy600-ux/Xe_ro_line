@@ -76,7 +76,7 @@
 
 #define PID_KP 50.0f
 #define PID_KI 0.0f
-#define PID_KD 5.0f
+#define PID_KD 0.0f
 
 /* Chu ky 5 ms */
 #define CTRL_DT 0.005f
