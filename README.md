@@ -4,7 +4,7 @@
 >
 > **Tác giả:** **Edric0807** — GitHub: [@caoduy600-ux](https://github.com/caoduy600-ux)  
 > **Mã nguồn:** [caoduy600-ux/Xe_ro_line](https://github.com/caoduy600-ux/Xe_ro_line)  
-> **Tài liệu lưu đồ:** Cập nhật theo mã nguồn trên nhánh `main`, kiểm tra ngày **01/11/2026**.
+
 
 ## 1. Mục tiêu và tính năng
 
