@@ -1,4 +1,4 @@
-# XE RÒ LINE 4 BÁNH — STM32F103 | PID & CUA GẤP 90°
+# XE RÒ LINE 4 BÁNH — Lập trình trên STM
 
 > Dự án robot 4 bánh dò vạch đen trên nền sáng, sử dụng **STM32F103C8Tx**, **5 cảm biến TCRT5000**, **2 driver TB6612FNG**, điều khiển tốc độ bằng PWM và thuật toán bám line PID kết hợp chế độ xoay tìm vạch ở cua gấp.
 >
